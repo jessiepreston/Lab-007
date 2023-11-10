@@ -129,15 +129,22 @@ ggplot(score_bty_aug,
 0. Look at the variable rank, and determine the frequency of each category level.
 
 ```{r}
-# ... 
+
+count(evals, rank)
+ 
 ```
 
 1. Fit a new linear model called `score_rank_fit` to predict average professor evaluation `score` based on `rank` of the professor.
 
 ```{r fit-score_rank_fit}
 # fit model
+score_rank_fit <- linear_reg() %>%
+  set_engine("lm") %>%
+  fit(score ~ rank, data= evals)
 
 # tidy model output
+tidy(score_rank_fit)
+
 ```
 
 *Add your narrative here.*
