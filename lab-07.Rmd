@@ -56,7 +56,7 @@ ggplot(data = evals,
 
 ```
 
-*A jitter plot gives a better view of overlapping data points making the relationship between variables easier to see - the original scatter plot had too many data points plotted making the graph harder to visualise and understand.*
+*A jitter plot randomly shifts data points so they are not overplotted making the relationship between variables easier to see - the original scatter plot had too many data points plotted making the graph harder to visualise and understand.*
 
 # Exercise 2: Simple Linear regression with a numerical predictor
 
@@ -74,7 +74,7 @@ score_bty_fit <- linear_reg() %>%
 tidy(score_bty_fit)
 ```
 
-*score = 3.88 + 0.0666 x bty_avg *
+*score = 3.88 + 0.0666 bty_avg *
 
 2. Plot the data again using `geom_jitter()`, and add the regression line.
 
@@ -92,11 +92,11 @@ ggplot(evals,
 
 3. Interpret the slope of the linear model in context of the data.
 
-*For each additional point added to average beauty, the score is expected to be higher, on average, by a factor of 1.0666*
+*For each unit increase of average beauty, the score is expected to be higher, on average, by 0666 points.*
 
 4. Interpret the intercept of the linear model in context of the data. Comment on whether or not the intercept makes sense in this context.
 
-*The intercept suggests that a teacher can score no lower than 3.88, this is unrealistic as its possible for them to score much lower.*
+*The intercept suggests that a teacher can score no lower than 3.88 for professors with a 0 beauty score, this is unrealistic as its not possible for professors to score lower than 1.*
 
 5. Determine the $R^2$ of the model and interpret it in the context of the data.
 
@@ -105,7 +105,7 @@ ggplot(evals,
 glance(score_bty_fit)$r.squared
 ```
 
-*The R^2 value shows that the percentof variability in the response variable (score) is very low (3%) and therefore the model is not very accurate or precise.*
+*The R^2 value shows that the percent of variability in the response variable (score) is very low (3.5%) and therefore the model is not very accurate or precise.*
 
 6. Make a plot of residuals vs. predicted values for the model above.
 
@@ -115,8 +115,8 @@ score_bty_aug <- augment(score_bty_fit$fit)
 
 ggplot(score_bty_aug,
        mapping = aes(
-         x = .resid,
-         y = .fitted
+         x = .fitted,
+         y = .resid
        )) +
   geom_jitter() +
   geom_hline(yintercept = 0, linetype = "dashed")
